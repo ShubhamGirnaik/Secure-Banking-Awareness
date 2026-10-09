@@ -15,60 +15,15 @@ section{max-width:1180px;margin:auto;padding:42px 24px}.sectionHead{display:flex
 .quiz{background:var(--surface2);border:1px solid var(--line);border-radius:22px;padding:28px}.question{font-size:20px;font-weight:750;margin-bottom:18px}.answers{display:grid;gap:10px}.answers button{text-align:left;padding:14px;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:12px;cursor:pointer}.answers button:hover{border-color:var(--brand)}.result{margin-top:15px;font-weight:700;min-height:22px}.result.good{color:var(--good)}.result.bad{color:var(--danger)}
 .cta{margin-top:20px;border-radius:24px;padding:30px;background:linear-gradient(135deg,var(--brand2),var(--brand));color:white;display:flex;justify-content:space-between;align-items:center;gap:20px}.cta h2{margin-bottom:8px}.cta p{margin:0;opacity:.86}.cta .btn{background:white;color:#123;border:0;white-space:nowrap}footer{border-top:1px solid var(--line);margin-top:50px}.foot{max-width:1180px;margin:auto;padding:26px 24px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:15px}
 @media(max-width:800px){.hero,.learn{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.navlinks{display:none}.hero{padding-top:48px}h1{font-size:48px}.cta{flex-direction:column;align-items:flex-start}}
-
-.hero{position:relative;isolation:isolate}
-.hero:before{content:"";position:absolute;z-index:-1;inset:8% -5% 0 28%;background:radial-gradient(ellipse at 70% 35%,color-mix(in srgb,var(--brand) 17%,transparent),transparent 62%);pointer-events:none}
-.heroCopy{max-width:720px}
-.hero .eyebrow{padding:8px 12px;border:1px solid color-mix(in srgb,var(--brand) 30%,var(--line));border-radius:999px;background:var(--surface)}
-.hero h1{max-width:680px}
-.hero .lead{max-width:620px}
-.heroHighlights{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
-.heroHighlights span{font-size:12px;font-weight:750;color:var(--muted);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 11px}
-.heroCard{position:relative;overflow:hidden;padding:28px}
-.heroCard:after{content:"✓";position:absolute;right:20px;bottom:-38px;font-size:170px;line-height:1;font-weight:900;color:color-mix(in srgb,var(--brand) 8%,transparent);pointer-events:none}
-.heroCard>*{position:relative;z-index:1}
-.heroCard .score{font-size:clamp(34px,4vw,48px);line-height:1.1;margin:26px 0 10px}
-.planSteps{display:grid;gap:12px;margin-top:22px}
-.planStep{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px}
-.planStep i{display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-style:normal;color:var(--brand);font-weight:800}
-.heroCard .small{line-height:1.5}
-@media(max-width:800px){.hero:before{inset:0}.heroHighlights{gap:7px}.heroCard{padding:22px}}
 </style></head>
 <body><div id="app">
 <header><nav class="nav"><div class="logo"><div class="shield">✓</div> SecureBanking</div><div class="navlinks"><button onclick="go('learn')">Learn</button><button onclick="go('quiz')">Take the quiz</button><button onclick="go('response')">If something goes wrong</button></div></nav></header>
 <main>
+<section class="hero"><div><div class="eyebrow"><i class="dot"></i> Online banking awareness program</div><h1>Bank online with <span>confidence.</span></h1><p class="lead">A practical guide to safer digital banking. Learn how to recognize phishing, protect your credentials, secure your devices, and act quickly when something feels wrong.</p><div class="actions"><button class="btn primary" onclick="go('learn')">Start learning →</button><button class="btn" onclick="go('quiz')">Test your instincts</button></div></div><div class="heroCard"><div class="cardTop"><b>Security readiness</b><span class="status">Good start</span></div><div class="score">72%</div><p class="small">Complete the essentials to strengthen your habits.</p><div class="meter"><i></i></div><p class="small" style="margin-top:12px">3 of 5 learning areas completed</p></div></section>
+<section><div class="sectionHead"><div><div class="eyebrow">The essentials</div><h2>Five habits that matter</h2></div><p>Security is less about memorizing rules and more about building a few reliable habits you can use every day.</p></div><div class="grid"><article class="tile"><div class="icon">🔐</div><h3>Protect your login</h3><p>Use a unique password or passphrase and enable multi-factor authentication whenever your bank offers it.</p><span class="tag">Credentials</span></article><article class="tile"><div class="icon">🎣</div><h3>Spot phishing</h3><p>Unexpected urgency, suspicious links, requests for one-time codes, or messages asking you to “verify” can be warning signs.</p><span class="tag">Scams</span></article><article class="tile"><div class="icon">📱</div><h3>Secure your device</h3><p>Keep your operating system and banking app updated. Use a screen lock and avoid banking on untrusted devices.</p><span class="tag">Devices</span></article><article class="tile"><div class="icon">👀</div><h3>Check before you act</h3><p>Pause before approving a payment or sharing information. Open your bank app directly instead of following an unexpected link.</p><span class="tag">Transactions</span></article><article class="tile"><div class="icon">🚨</div><h3>React quickly</h3><p>If you suspect fraud, contact your bank through an official channel immediately and secure your account.</p><span class="tag">Response</span></article><article class="tile"><div class="icon">🛡️</div><h3>Keep alerts on</h3><p>Transaction alerts can help you notice unusual activity sooner. Review account activity regularly.</p><span class="tag">Monitoring</span></article></div></section>
+<section id="learn"><div class="sectionHead"><div><div class="eyebrow">Micro-learning</div><h2>Learn in 5 minutes</h2></div><p>Select a lesson to get the key actions without the jargon.</p></div><div class="learn"><div class="lessonList" id="lessonList"></div><div class="lessonBody" id="lessonBody"></div></div></section>
 
-<section class="hero">
-  <div class="heroCopy">
-    <div class="eyebrow"><i class="dot"></i> Your guide to safer banking</div>
-    <h1>Bank online with <span>confidence.</span></h1>
-    <p class="lead">Spot scams before they catch you. Build safer banking habits, protect your money and learn what to do when something doesn’t feel right.</p>
-    <div class="actions">
-      <button class="btn primary" onclick="go('learn')">Start learning →</button>
-      <button class="btn" onclick="go('quiz')">Take the 5-question quiz ↗</button>
-    </div>
-    <div class="heroHighlights">
-      <span>✓ Simple, practical lessons</span>
-      <span>⏱ About 5 minutes</span>
-      <span>🛡️ Safety-first guidance</span>
-    </div>
-  </div>
-  <div class="heroCard">
-    <div class="cardTop">
-      <b>Your safer-banking starter plan</b>
-      <span class="status">5 habits</span>
-    </div>
-    <div class="score">Small steps.<br>Stronger security.</div>
-    <p class="small">Build confidence with five practical habits you can use every day.</p>
-    <div class="meter"><i style="width:100%"></i></div>
-    <div class="planSteps">
-      <div class="planStep"><i>1</i><span>Protect your login and OTPs</span></div>
-      <div class="planStep"><i>2</i><span>Spot suspicious messages</span></div>
-      <div class="planStep"><i>3</i><span>Know how to respond to fraud</span></div>
-    </div>
-  </div>
-</section>
-
+<section id="quiz">
 <div class="sectionHead">
 <div><div class="eyebrow">Quick check</div><h2>Would you fall for it?</h2></div>
 <p>Answer five everyday digital-banking scenarios. Each correct answer earns 20 points, with feedback to help you learn as you go.</p>
