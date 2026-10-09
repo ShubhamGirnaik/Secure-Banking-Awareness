@@ -432,7 +432,7 @@ footer { border-top: 1px solid var(--line); margin-top: 50px; }
       <p class="lead">Spot scams before they catch you. Build safer banking habits, protect your money and learn what to do when something doesn’t feel right.</p>
       <div class="actions">
         <button type="button" class="btn primary" onclick="go('learn')">Start learning →</button>
-        <button type="button" class="btn" onclick="go('quiz')">Take the 5-question quiz ↗</button>
+        <button type="button" class="btn" onclick="go('quiz')">Take the 10-question quiz ↗</button>
       </div>
       <div class="heroHighlights">
         <span>✓ Simple, practical lessons</span>
@@ -487,7 +487,7 @@ footer { border-top: 1px solid var(--line); margin-top: 50px; }
     </div>
     <div class="quiz">
       <div class="quizMeta">
-        <span id="quizProgress">Question 1 of 5</span>
+        <span id="quizProgress">Question 1 of 10</span>
         <span id="quizPoints">Score: 0 / 100</span>
       </div>
       <div id="quizQuestion" class="question" aria-live="polite"></div>
@@ -555,63 +555,70 @@ const lessons = [
   }
 ];
 
+
 const quizQuestions = [
   {
     q: "You receive a text saying your bank account will be blocked unless you click a link immediately. What is the safest response?",
-    a: [
-      "Click quickly before the deadline",
-      "Open your bank app or type its known official address yourself",
-      "Reply asking the sender to prove they work for the bank",
-      "Forward the message to friends to see if it is real"
-    ],
+    a: ["Click quickly before the deadline", "Open your bank app or type its known official address yourself", "Reply asking the sender to prove they work for the bank", "Forward the message to friends"],
     correct: 1,
-    why: "Urgent messages can be phishing. Contact the bank using an official channel you choose yourself, not the message link."
+    why: "Urgent messages can be phishing. Contact your bank through an official channel."
   },
   {
-    q: "Someone calling from a number that looks like your bank asks you to read out an OTP to stop a suspicious payment. What should you do?",
-    a: [
-      "Share it because they say they are protecting you",
-      "Share only the first few digits",
-      "End the call and contact your bank using its official number or app",
-      "Ask them to send another OTP"
-    ],
+    q: "Someone claiming to be from your bank asks for your OTP to stop a suspicious payment. What should you do?",
+    a: ["Share it immediately", "Share only a few digits", "End the call and contact your bank through its official number or app", "Ask for another OTP"],
     correct: 2,
-    why: "Never disclose an OTP or verification code to a caller. End the call and independently contact your bank."
+    why: "Never disclose an OTP or verification code to a caller."
   },
   {
-    q: "A stranger says they will send you money through UPI and asks you to enter your UPI PIN to receive it. What should you do?",
-    a: [
-      "Enter the PIN to accept the money",
-      "Do not enter the PIN; verify the request in your trusted payment app",
-      "Share your PIN if the amount is small",
-      "Scan any QR code they send"
-    ],
+    q: "A stranger asks you to enter your UPI PIN to receive money. What should you do?",
+    a: ["Enter your PIN", "Never enter it to receive money; verify the request in your trusted payment app", "Share your PIN if the amount is small", "Scan their QR code"],
     correct: 1,
-    why: "A UPI PIN is used to authorise payments, not to receive money. Never enter it to collect funds at someone else’s instruction."
+    why: "A UPI PIN authorises payments. You do not need it to receive money."
   },
   {
-    q: "You need to check your bank balance while using a shared public computer. What is the safest choice?",
-    a: [
-      "Use it and save the password for next time",
-      "Use a stranger’s browser profile",
-      "Avoid banking on the shared device and use your own trusted, updated device instead",
-      "Leave the banking page open so you can return to it"
-    ],
+    q: "You need to check your bank balance on a shared public computer. What is safest?",
+    a: ["Save your password", "Use a stranger's browser profile", "Use your own trusted, updated device instead", "Leave the banking page open"],
     correct: 2,
-    why: "Shared devices may retain data or contain unsafe software. Prefer your own updated, screen-locked device and trusted connection."
+    why: "Shared devices may retain data or contain unsafe software."
   },
   {
     q: "You notice a transaction you did not make. What should you do first?",
-    a: [
-      "Wait a few days to see if it disappears",
-      "Post your account details on social media for help",
-      "Reply to the suspicious message that caused it",
-      "Contact your bank immediately through an official channel and report the transaction"
-    ],
+    a: ["Wait a few days", "Post your account details online", "Reply to the suspicious message", "Contact your bank immediately through an official channel"],
     correct: 3,
-    why: "Report suspected fraud to your bank immediately through its official app, website, or known phone number. Follow its steps to secure the account."
+    why: "Report suspected fraud promptly and follow your bank's steps to secure your account."
+  },
+  {
+    q: "You receive an unexpected email attachment claiming to be your bank statement. What is safest?",
+    a: ["Open it immediately", "Download it on every device", "Do not open it; verify through your bank's official app or website", "Forward it to colleagues"],
+    correct: 2,
+    why: "Unexpected attachments may contain malware or lead to phishing."
+  },
+  {
+    q: "A caller says your money is at risk and asks you to transfer it to a 'safe account.' What should you do?",
+    a: ["Transfer it immediately", "End the call and contact your bank through an official channel", "Transfer a small amount first", "Give the caller your password"],
+    correct: 1,
+    why: "A request to move money to a so-called safe account is a major scam warning sign."
+  },
+  {
+    q: "Which password is best for online banking?",
+    a: ["The same password used everywhere", "Your name and birth year", "A short, easy word", "A unique, long password or passphrase"],
+    correct: 3,
+    why: "Unique, long passwords help protect your account if another service is compromised."
+  },
+  {
+    q: "A message asks you to scan a QR code to receive a refund. What should you do?",
+    a: ["Scan it and enter your UPI PIN", "Hurry before the offer expires", "Verify independently; never enter your PIN to receive money", "Share the QR code with friends"],
+    correct: 2,
+    why: "Be cautious with unexpected QR codes and payment requests. Verify refunds independently."
+  },
+  {
+    q: "You finish banking on a shared computer. What should you do before leaving?",
+    a: ["Save your password", "Log out, close the browser and avoid saving credentials", "Leave your account open", "Only clear browsing history"],
+    correct: 1,
+    why: "Always log out and avoid saving banking credentials on shared devices."
   }
 ];
+
 
 let currentLesson = 0;
 let quizIndex = 0;
@@ -692,7 +699,7 @@ function answerQuiz(choice) {
   const correct = choice === question.correct;
   const buttons = document.querySelectorAll("#quizAnswers button");
 
-  if (correct) quizScore += 20;
+  if(ok)quizScore+=10;
 
   buttons.forEach((button, index) => {
     button.disabled = true;
