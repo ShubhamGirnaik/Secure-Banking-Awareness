@@ -699,7 +699,7 @@ function answerQuiz(choice) {
   const correct = choice === question.correct;
   const buttons = document.querySelectorAll("#quizAnswers button");
 
-  if(ok)quizScore+=10;
+  if (correct) quizScore += 10;
 
   buttons.forEach((button, index) => {
     button.disabled = true;
