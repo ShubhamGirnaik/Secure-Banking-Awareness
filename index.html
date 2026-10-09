@@ -674,7 +674,7 @@ function renderQuiz() {
 
   document.getElementById("quizAnswers").innerHTML =
     question.a.map((answer, index) => `
-      <button type="button" onclick="answerQuiz(${index})">${answer}</button>
+      <button type="button" data-answer="${index}">${answer}</button>
     `).join("");
 
   const result = document.getElementById("result");
@@ -765,6 +765,12 @@ function showResponseChecklist() {
     "5. Never share your OTP, PIN, or password with anyone."
   );
 }
+
+/* Bind quiz answers through one delegated listener so regenerated buttons always work. */
+document.getElementById("quizAnswers").addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-answer]");
+  if (button) answerQuiz(Number(button.dataset.answer));
+});
 
 /* Initialize both interactive sections when the page loads. */
 renderLessons();
