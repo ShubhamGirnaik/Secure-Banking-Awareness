@@ -22,7 +22,24 @@ section{max-width:1180px;margin:auto;padding:42px 24px}.sectionHead{display:flex
 <section class="hero"><div><div class="eyebrow"><i class="dot"></i> Online banking awareness program</div><h1>Bank online with <span>confidence.</span></h1><p class="lead">A practical guide to safer digital banking. Learn how to recognize phishing, protect your credentials, secure your devices, and act quickly when something feels wrong.</p><div class="actions"><button class="btn primary" onclick="go('learn')">Start learning →</button><button class="btn" onclick="go('quiz')">Test your instincts</button></div></div><div class="heroCard"><div class="cardTop"><b>Security readiness</b><span class="status">Good start</span></div><div class="score">72%</div><p class="small">Complete the essentials to strengthen your habits.</p><div class="meter"><i></i></div><p class="small" style="margin-top:12px">3 of 5 learning areas completed</p></div></section>
 <section><div class="sectionHead"><div><div class="eyebrow">The essentials</div><h2>Five habits that matter</h2></div><p>Security is less about memorizing rules and more about building a few reliable habits you can use every day.</p></div><div class="grid"><article class="tile"><div class="icon">🔐</div><h3>Protect your login</h3><p>Use a unique password or passphrase and enable multi-factor authentication whenever your bank offers it.</p><span class="tag">Credentials</span></article><article class="tile"><div class="icon">🎣</div><h3>Spot phishing</h3><p>Unexpected urgency, suspicious links, requests for one-time codes, or messages asking you to “verify” can be warning signs.</p><span class="tag">Scams</span></article><article class="tile"><div class="icon">📱</div><h3>Secure your device</h3><p>Keep your operating system and banking app updated. Use a screen lock and avoid banking on untrusted devices.</p><span class="tag">Devices</span></article><article class="tile"><div class="icon">👀</div><h3>Check before you act</h3><p>Pause before approving a payment or sharing information. Open your bank app directly instead of following an unexpected link.</p><span class="tag">Transactions</span></article><article class="tile"><div class="icon">🚨</div><h3>React quickly</h3><p>If you suspect fraud, contact your bank through an official channel immediately and secure your account.</p><span class="tag">Response</span></article><article class="tile"><div class="icon">🛡️</div><h3>Keep alerts on</h3><p>Transaction alerts can help you notice unusual activity sooner. Review account activity regularly.</p><span class="tag">Monitoring</span></article></div></section>
 <section id="learn"><div class="sectionHead"><div><div class="eyebrow">Micro-learning</div><h2>Learn in 5 minutes</h2></div><p>Select a lesson to get the key actions without the jargon.</p></div><div class="learn"><div class="lessonList" id="lessonList"></div><div class="lessonBody" id="lessonBody"></div></div></section>
-<section id="quiz"><div class="sectionHead"><div><div class="eyebrow">Quick check</div><h2>Would you fall for it?</h2></div><p>Choose the safest response. This is an awareness exercise, not a test of banking knowledge.</p></div><div class="quiz"><div class="question">“Your bank account will be locked in 10 minutes. Click this link to confirm your identity.” What should you do?</div><div class="answers"><button onclick="answer(this,false)">Click the link and sign in so the account isn't locked.</button><button onclick="answer(this,true)">Ignore the link and contact the bank through its official app, website, or phone number.</button><button onclick="answer(this,false)">Reply and send the requested one-time password.</button></div><div id="result" class="result"></div></div></section>
+
+<section id="quiz">
+<div class="sectionHead">
+<div><div class="eyebrow">Quick check</div><h2>Would you fall for it?</h2></div>
+<p>Answer five everyday digital-banking scenarios. Each correct answer earns 20 points, with feedback to help you learn as you go.</p>
+</div>
+<div class="quiz">
+<div class="quizMeta"><span id="quizProgress">Question 1 of 5</span><span id="quizPoints">Score: 0 / 100</span></div>
+<div id="quizQuestion" class="question"></div>
+<div id="quizAnswers" class="answers"></div>
+<div id="result" class="result" aria-live="polite"></div>
+<div class="quizActions">
+<button id="nextQuestion" class="btn primary" onclick="nextQuizQuestion()" disabled>Next question →</button>
+<button id="restartQuiz" class="btn" onclick="restartQuiz()" hidden>Try again</button>
+</div>
+</div>
+</section>
+
 <section id="response"><div class="cta"><div><h2>Something feels wrong?</h2><p>Stop. Don’t share codes or move money because of an unexpected message. Contact your bank using an official channel.</p></div><button class="btn" onclick="alert('Use the phone number on your bank card, official website, or official mobile app. Never rely on contact details from a suspicious message.')">Show response checklist</button></div></section>
 </main><footer><div class="foot"><span>SecureBanking Awareness • Educational content</span><span>Never enter real banking credentials on an awareness site.</span></div></footer>
 </div>
@@ -35,4 +52,161 @@ const lessons=[
 ['5','When something goes wrong','Contact your bank immediately using a trusted number or official app/site. Change compromised passwords and monitor account activity.','Fast reporting can help your bank investigate and may limit further harm.']
 ];
 let current=0;function renderLessons(){const list=document.getElementById('lessonList');list.innerHTML=lessons.map((x,i)=>`<div class="lesson ${i===current?'active':''}" onclick="selectLesson(${i})"><div class="num">${x[0]}</div><div><b>${x[1]}</b><small>${i===0?'Start here':i===4?'Response plan':'Core habit'}</small></div></div>`).join('');const x=lessons[current];document.getElementById('lessonBody').innerHTML=`<div class="eyebrow">Lesson ${x[0]}</div><h3>${x[1]}</h3><p>${x[2]}</p><div class="check"><b>Remember:</b> ${x[3]}</div>`}function selectLesson(i){current=i;renderLessons()}function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'})}function answer(el,ok){document.querySelectorAll('.answers button').forEach(b=>b.disabled=true);const r=document.getElementById('result');r.className='result '+(ok?'good':'bad');r.textContent=ok?'Correct. Pause and use an official channel you trust. Never share one-time codes.':'Not the safest choice. Unexpected urgency is a reason to pause, not click or share credentials.'}renderLessons();
+
+const quizQuestions = [
+  {
+    q: "Your bank sends a text threatening to block your account unless you click a link. What should you do?",
+    a: [
+      "Click the link immediately",
+      "Open your bank app directly to check",
+      "Reply with your password",
+      "Forward the message to friends"
+    ],
+    correct: 1,
+    why: "Avoid unexpected links. Contact your bank through its official app or website."
+  },
+  {
+    q: "A caller claiming to be from your bank asks for your OTP to stop fraud. What should you do?",
+    a: [
+      "Share the OTP",
+      "Share only half the code",
+      "End the call and contact your bank using its official number",
+      "Ask for another OTP"
+    ],
+    correct: 2,
+    why: "Never disclose an OTP to a caller. Contact your bank independently."
+  },
+  {
+    q: "Someone asks you to enter your UPI PIN to receive money. What is safest?",
+    a: [
+      "Enter your PIN",
+      "Never enter your PIN to receive money; check the request in your trusted app",
+      "Share your PIN privately",
+      "Scan any QR code they send"
+    ],
+    correct: 1,
+    why: "Your UPI PIN authorises payments. Do not enter it to receive money at someone else's instruction."
+  },
+  {
+    q: "You need to check your balance on a public computer. What should you do?",
+    a: [
+      "Save your password in the browser",
+      "Leave the account open",
+      "Use a stranger's browser profile",
+      "Prefer your own trusted, updated device"
+    ],
+    correct: 3,
+    why: "Shared devices can expose private information. Use a trusted device for banking."
+  },
+  {
+    q: "You discover a transaction you did not make. What should you do?",
+    a: [
+      "Wait a week",
+      "Post your account details online",
+      "Reply to the suspicious message",
+      "Contact your bank immediately through an official channel"
+    ],
+    correct: 3,
+    why: "Report suspected fraud promptly and follow your bank's instructions to secure your account."
+  }
+];
+
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuiz() {
+  const q = quizQuestions[quizIndex];
+
+  document.getElementById("quizProgress").textContent =
+    `Question ${quizIndex + 1} of ${quizQuestions.length}`;
+
+  document.getElementById("quizPoints").textContent =
+    `Score: ${quizScore} / 100`;
+
+  document.getElementById("quizQuestion").textContent = q.q;
+
+  document.getElementById("quizAnswers").innerHTML =
+    q.a.map((answer, i) =>
+      `<button type="button" onclick="answerQuiz(${i})">${answer}</button>`
+    ).join("");
+
+  document.getElementById("result").textContent = "";
+  document.getElementById("result").className = "result";
+
+  const next = document.getElementById("nextQuestion");
+  next.disabled = true;
+  next.hidden = false;
+  next.textContent =
+    quizIndex === quizQuestions.length - 1
+      ? "See my result →"
+      : "Next question →";
+
+  document.getElementById("restartQuiz").hidden = true;
+  quizAnswered = false;
+}
+
+function answerQuiz(choice) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+
+  const q = quizQuestions[quizIndex];
+  const correct = choice === q.correct;
+
+  if (correct) quizScore += 20;
+
+  document.querySelectorAll("#quizAnswers button").forEach(button => {
+    button.disabled = true;
+  });
+
+  document.getElementById("quizPoints").textContent =
+    `Score: ${quizScore} / 100`;
+
+  const result = document.getElementById("result");
+  result.className = "result " + (correct ? "good" : "bad");
+  result.textContent =
+    (correct ? "Correct! " : "Not quite. ") + q.why;
+
+  document.getElementById("nextQuestion").disabled = false;
+}
+
+function nextQuizQuestion() {
+  if (!quizAnswered) return;
+
+  if (quizIndex < quizQuestions.length - 1) {
+    quizIndex++;
+    renderQuiz();
+    return;
+  }
+
+  document.getElementById("quizProgress").textContent = "Quiz complete";
+  document.getElementById("quizQuestion").textContent =
+    `Your final score: ${quizScore} / 100`;
+
+  document.getElementById("quizAnswers").innerHTML = "";
+
+  const result = document.getElementById("result");
+  result.className = "result " + (quizScore >= 80 ? "good" : "");
+
+  result.textContent =
+    quizScore === 100
+      ? "Excellent! You answered every question correctly."
+      : quizScore >= 80
+      ? "Great job! Keep practising safe banking habits."
+      : quizScore >= 60
+      ? "Good effort. Review the lessons and try again."
+      : "Keep learning. Review the safety lessons and try again.";
+
+  document.getElementById("nextQuestion").hidden = true;
+  document.getElementById("restartQuiz").hidden = false;
+}
+
+function restartQuiz() {
+  quizIndex = 0;
+  quizScore = 0;
+  renderQuiz();
+}
+
+renderQuiz();
+
 </script></body></html>
